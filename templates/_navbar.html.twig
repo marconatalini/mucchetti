@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg" aria-label="navbar">
+    <div class="container">
+        {#                            <a href="/" class="d-flex align-items-start col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">#}
+        <a href="/" class="me-auto">
+            <img src="{{ asset('image/logo_europrofili.svg') }}" alt="Logo europrofili">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_permit_index') }}">Lista</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_permit_new') }}">Nuovo permesso</a>
+                </li>
+                {#<li class       ="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>#}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="fa-solid fa-user"></i> {{ app.user ? app.user : 'User' }}</a>
+                    <ul class="dropdown-menu">
+                            {#<li>
+                                <a class="dropdown-item" href="{{ path('app_permit_index') }}">Index</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_permit_new') }}">Request</a>
+                            </li>#}
+                        {% if app.user %}
+                            <li>
+                                <a href="{{ path('app_logout') }}" class="dropdown-item">Logout</a>
+                            </li>
+                        {% endif %}
+                        {#<li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>#}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

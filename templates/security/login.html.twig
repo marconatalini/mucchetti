@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block bodyclass %}h-100 d-flex flex-column align-self-center{% endblock %}
+
+{% block mainclass %}form-signin m-auto{% endblock %}
+
+{% block main %}
+    <form method="post">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+{#                {% if error.code == 1 %}#}
+{#                    Click <a href="{{ path('app_send_verify_email', {username: last_username}) }}">HERE</a> for a new link.#}
+{#                {% endif %}#}
+            </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <div class="form-floating">
+            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control"
+                   autocomplete="email" placeholder="yourmail@live.it" required autofocus>
+            <label for="username">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password"
+                   placeholder="your password" required>
+            <label for="password">Password</label>
+        </div>
+{#        <p>Forgot your password? Click <a href="{{ path('app_forgot_password_request') }}">here</a></p>#}
+
+        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+        {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+        #}
+
+        <div class="checkbox mb-3">
+            <input type="checkbox" name="_remember_me" id="_remember_me">
+            <label for="_remember_me">Remember me</label>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2 my-2" type="submit">
+            Sign in
+        </button>
+
+{#        <p class="mb-0 mt-3">Don't have an account yet?</p>#}
+{#        <a class="btn btn-outline-primary w-100 py-2" href="{{ path('app_register') }}">#}
+{#            Sign up#}
+{#        </a>#}
+
+    </form>
+
+{% endblock %}

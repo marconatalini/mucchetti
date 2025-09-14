@@ -1,0 +1,12 @@
+{% for transition in workflow_transitions(permit) %}
+    {% if workflow_can(permit, transition.name) %}
+        <a href="{{ path('app_permit_action' , {id: permit.id, action: transition.name}) }}" class="btn btn-outline-primary">{{ transition.name }}</a>
+    {% endif %}
+{% else %}
+    No actions available.
+{% endfor %}
+
+{% if workflow_can(permit, 'submit') %}
+    <a href="{{ path('app_permit_edit' , {id: permit.id}) }}" class="btn btn-outline-success">Modify</a>
+{% endif %}
+

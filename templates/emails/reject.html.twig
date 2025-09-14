@@ -1,0 +1,20 @@
+{% set employee = permit.employee %}
+{% set boss = permit.employee.parentUser %}
+
+<h1>Buongiorno {{ employee }},</h1>
+
+<p>
+    La tua richiesta di {{ permit.permitType}} che <br>
+    inizierà il {{ permit.startAt | date('d/m/Y H:i') }} <br>
+    per finire il {{ permit.endAt | date('d/m/Y H:i') }} <br>
+    è stata RESPINTA !!
+
+    Puoi modificarla e re-inoltrarla cliccando qui sotto.
+</p>
+
+{#<p><code>{{ employee }}</code></p>#}
+
+<p>
+    <a href="{{ absolute_url(path('app_permit_index')) }}">VAI AL SITO</a>
+{#    <a href="{{ absolute_url(path('app_permit_action', {action: 'reject', id: permit.id, })) }}">RESPINGI absolute</a>#}
+</p>

@@ -1,0 +1,10 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'noreply@europrofiligroup.net'
+#            recipients: [ 'foo@example.com', 'bar@example.com' ]
+        headers:
+            From: 'Permessi <noreply@europrofiligroup.net>'
+#            Bcc: 'baz@example.com'
+#            X-Custom-Header: 'foobar'

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block title %}Nuova richiesta permesso{% endblock %}
+
+{% block mainclass %}col-lg-6 m-lg-auto{% endblock %}
+
+{% block main %}
+    <div class="pb-5">
+        {{ form(form) }}
+    </div>
+
+{% endblock %}
+

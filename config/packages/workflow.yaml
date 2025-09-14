@@ -1,0 +1,39 @@
+framework:
+    workflows:
+        permit_request:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'status'
+            # The "supports" option is useful only if you are using Twig functions ('workflow_*')
+            supports:
+                - App\Entity\Permit
+            initial_marking: start
+            places:
+                - start
+                - review
+                - approved
+                - registered
+                - deleted
+            transitions:
+                delete:
+                    guard: "user == subject.getEmployee()"
+                    from: start
+                    to: delete
+                submit:
+                    guard: "user == subject.getEmployee()"
+                    from: review
+                    to: start
+                approve:
+                    guard: "is_granted('ROLE_BOSS') and user != subject.getEmployee()"
+                    from: start
+                    to: approved
+                reject:
+                    guard: "is_granted('ROLE_BOSS') and user != subject.getEmployee()"
+                    from: start
+                    to: review
+                close:
+                    guard: "is_granted('ROLE_STAFF')"
+                    from: approved
+                    to: registered
+                

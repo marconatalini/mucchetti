@@ -1,0 +1,54 @@
+<table class="table datagrid">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">type</th>
+        <th scope="col">employee</th>
+        <th scope="col">start</th>
+        <th scope="col">end</th>
+        <th scope="col">days</th>
+        <th scope="col">hours</th>
+        <th scope="col">status</th>
+        <th scope="col" class="text-end">action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for permit in permits %}
+        <tr>
+            <th>{{ permit.id }}</th>
+            <td>{{ permit.permitType }}</td>
+            <td>{{ permit.employee }}</td>
+            <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
+            <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
+            <td>{{ permit.days }}</td>
+            <td>{{ permit.hours }}</td>
+            <td>{{ permit.status }}</td>
+            <td class="text-end">
+                {{ include('permit/_action.html.twig') }}
+            </td>
+        </tr>
+    {% else %}
+        {% for i in 1..2 %}
+            <tr class="empty-row">
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+            </tr>
+            {% if 1 == loop.index %}
+                <tr class="no-result">
+                    <td colspan="100" class="text-center">
+                        Nessun Permesso.
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>

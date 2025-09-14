@@ -1,0 +1,18 @@
+{% set employee = permit.employee %}
+{% set boss = permit.employee.parentUser %}
+
+<h1>Buongiorno {{ boss }},</h1>
+
+<p>
+    E' arrivata la richiesta di {{ permit.permitType}} di {{ employee.firstName }} {{ employee.lastName }} che <br>
+    inizierà il {{ permit.startAt | date('d/m/Y H:i') }} <br>
+    per finire il {{ permit.endAt | date('d/m/Y H:i') }} <br>
+    è stata inserita nel sistema Mucchetti il {{ permit.requestAt | date('d/m/Y H:i') }}.
+</p>
+
+{#<p><code>{{ employee }}</code></p>#}
+<p>Clicca qui sotto per accedere all'elenco permessi</p>
+<p>
+    <a href="{{ absolute_url(path('app_permit_index')) }}">CONTROLLA permessi</a>
+{#    <a href="{{ absolute_url(path('app_permit_action', {action: 'reject', id: permit.id, })) }}">RESPINGI absolute</a>#}
+</p>
