@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New employee{% endblock %}
+
+{% block mainclass %}col-lg-6 m-lg-auto{% endblock %}
+
+{% block main %}
+    <div class="pb-5">
+        {{ form_start(form, {
+            'attr' : {} | merge(
+                stimulus_controller('employee').toArray(),
+                stimulus_target('employee', 'form').toArray(),
+                stimulus_action('employee', 'setEmailAuto', 'change').toArray()
+            )
+        }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

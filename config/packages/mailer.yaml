@@ -1,10 +1,22 @@
+#when@prod:
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         envelope:
             sender: 'noreply@europrofiligroup.net'
-#            recipients: [ 'foo@example.com', 'bar@example.com' ]
+            recipients: ['marco.natalini@europrofiligroup.it']
         headers:
             From: 'Permessi <noreply@europrofiligroup.net>'
 #            Bcc: 'baz@example.com'
 #            X-Custom-Header: 'foobar'
+
+#when@dev:
+#    framework:
+#        mailer:
+#            envelope:
+#                sender: 'noreply@europrofiligroup.net'
+#                recipients: ['marco.natalini@europrofiligroup.it']
+#                allowed_recipients:
+#                    - 'internal@example.com'
+#            headers:
+#                From: 'Permessi <noreply@europrofiligroup.net>'

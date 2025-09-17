@@ -20,8 +20,6 @@ class PermitType extends AbstractType
                 'choices' => array_combine(Permit::TYPES, Permit::TYPES),
                 'expanded' => true,
                 'label_attr' => ['class' => 'radio-inline'],
-//                'attr' => ['class' => 'd-flex justify-content-between'],
-
             ])
             ->add('startAt', null, [
                 'widget' => 'single_text',
