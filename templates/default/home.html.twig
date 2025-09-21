@@ -4,20 +4,22 @@
 {#    {{ turbo_page_requires_reload() }}#}
 {% endblock %}
 
-
 {% block title %}Mucchetti Home{% endblock %}
 
 {% block mainclass %}{{ parent() }} text-center{% endblock %}
 
 {% block main %}
-    <h1>Chi cerchi?</h1>
-    <form class="m-auto" role="search">
-        <input class="form-control" list="employees" type="search" placeholder="Nome Cognome"
-               aria-label="Search" name="employee" autocomplete="off">
-        <datalist id="employees">
-            {% for user in employees %}
-                <option value="{{ user.firstName }} {{ user.lastName }}"></option>
-            {% endfor %}
-        </datalist>
+    <p class="lead">Vuoi sapere se la persona che cerchi ha un permesso? Scrivi qui il suo nome..</p>
+    <form class="" role="search">
+        <div class="input-group mb-3">
+            <input class="form-control" list="employees" type="search" placeholder="Nome Cognome"
+                   aria-label="Search" name="employee" autocomplete="off" autofocus>
+            <datalist id="employees">
+                {% for user in employees %}
+                    <option value="{{ user.firstName }} {{ user.lastName }}"></option>
+                {% endfor %}
+            </datalist>
+            <button class="btn btn-outline-secondary" type="submit" id="button-search">Cerca</button>
+        </div>
     </form>
 {% endblock %}

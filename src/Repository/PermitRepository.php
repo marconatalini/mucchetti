@@ -22,13 +22,13 @@ class PermitRepository extends ServiceEntityRepository
         parent::__construct($registry, Permit::class);
     }
 
-    public function add(Permit $permit, bool $flush = true): void
+    public function add(Permit $permit): Permit
     {
         $em = $this->getEntityManager();
         $em->persist($this->computeDatetimeDiff($permit));
-        if ($flush) {
-            $this->save($permit);
-        }
+        $this->save($permit);
+
+        return $permit;
 
     }
 
@@ -78,7 +78,7 @@ class PermitRepository extends ServiceEntityRepository
 
     /**
      * @param array $users
-     * @return UserInterface[]
+     * @return array
      */
     public function findActiveStaffPermits(Collection $staffUsers): array
     {

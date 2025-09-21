@@ -43,8 +43,8 @@ final class EmployeeController extends AbstractController
             $user->setPassword($hashedPassword);
 
             $this->userRepository->add(user: $user);
-            $this->addFlash('success', 'Employee has been saved. Login');
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Employee has been saved. Please, login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('employee/new.html.twig', [

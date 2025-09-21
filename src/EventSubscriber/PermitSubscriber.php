@@ -68,7 +68,7 @@ class PermitSubscriber implements EventSubscriberInterface
 
         $email = (new TemplatedEmail())
 //            ->from('hello@example.com')
-            ->to()
+            ->to('personale@europrofiligroup.it')
             ->cc($permit->getEmployee()->getEmail())
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')

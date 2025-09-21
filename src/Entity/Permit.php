@@ -61,6 +61,7 @@ class Permit
     public function __construct()
     {
         $this->requestAt = new \DateTimeImmutable();
+//        $this->status = 'start'; //before marking workflow
     }
 
     public function __toString(): string

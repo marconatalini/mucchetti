@@ -1,35 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Permesso{% endblock %}
+{% block title %}Permessi{% endblock %}
 
 {% block mainclass %}container pt-3{% endblock %}
 
 {% block head %}
-    <meta name="turbo-cache-control" content="no-cache">
+{#    <meta name="turbo-cache-control" content="no-cache">#}
 {% endblock %}
 
 {% block importmap %}
     {{ parent() }}
-    {{ importmap('calendar') }}
 {% endblock %}
 
 
 {% block main %}
-    <h1>Ciao {{ app.user.firstName }}</h1>
-    {% if is_granted("ROLE_STAFF") %}
-        <p>Questi sono tutti i permessi in corso</p>
-        {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
-    {% else %}
+        <h3>Elenco richieste di {{ app.user.firstName }}</h3>
         <p>Ad oggi {{ date('now')|date('d.m.Y') }}, questi sono i tuoi futuri permessi/ferie</p>
         {{ include('permit/_permits_table.html.twig') }}
-        <a href="{{ path('app_permit_new') }}" class="btn btn-outline-primary">Nuova richiesta</a>
-
-        {% if app.user.staffMembers | length > 0 %}
-            <p class="mt-5">Questi sono i futuri permessi/ferie dei tuoi collaboratori</p>
-            {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
+        {% if app.user.parentUser %}
+            <a href="{{ path('app_permit_new') }}" class="btn btn-outline-primary">Nuova richiesta</a>
         {% endif %}
-    {% endif %}
-
-    {{ include('permit/_calendar.html.twig') }}
-
 {% endblock %}

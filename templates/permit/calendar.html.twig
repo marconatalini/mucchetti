@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendario{% endblock %}
+
+{% block mainclass %}container pt-3{% endblock %}
+
+{% block head %}
+{#    <meta name="turbo-cache-control" content="no-cache">#}
+{% endblock %}
+
+{% block importmap %}
+    {{ parent() }}
+    {{ importmap('calendar') }}
+{% endblock %}
+
+
+{% block main %}
+    <div id="staff-permit-calendar" class="mt-3"></div>
+    <a class="hide" id="urlEvents" href="{{ path('app_permit_calendar_json') }}"></a>
+{% endblock %}

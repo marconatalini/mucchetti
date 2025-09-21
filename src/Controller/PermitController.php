@@ -33,14 +33,37 @@ final class PermitController extends AbstractController
     #[Route('/permit', name: 'app_permit_index')]
     public function index(): Response
     {
+        return $this->render('permit/index.html.twig', [
+            'permits' => $this->permitRepository->findActivePermitByUser($this->getUser()),
+        ]);
+    }
+
+    #[Route('/permit/calendar', name: 'app_permit_calendar')]
+    public function calendar(): Response
+    {
+        return $this->render('permit/calendar.html.twig', []);
+    }
+
+    #[Route('/permit/alert', name: 'app_permit_alert')]
+    public function alertCount(): Response
+    {
+        $staffPermits = $this->permitRepository->findActiveStaffPermits($this->getUser()->getStaffMembers());
+
+        return $this->render('permit/_alert.html.twig', [
+            'count' => count($staffPermits),
+        ]);
+    }
+
+    #[Route('/permit/action', name: 'app_permit_action_index')]
+    public function needActionIndex(): Response
+    {
         if ($this->isGranted("ROLE_STAFF")) {
             $staffPermits = $this->permitRepository->findAll();
         } else {
             $staffPermits = $this->permitRepository->findActiveStaffPermits($this->getUser()->getStaffMembers());
         }
 
-        return $this->render('permit/index.html.twig', [
-            'permits' => $this->permitRepository->findActivePermitByUser($this->getUser()),
+        return $this->render('permit/needAction.html.twig', [
             'staffPermits' => $staffPermits
         ]);
     }
@@ -49,6 +72,11 @@ final class PermitController extends AbstractController
     #[Route('/permit/edit/{id}', name: 'app_permit_edit')]
     public function new(?Permit $permit, Request $request): Response
     {
+        if (null == $this->getUser()->getParentUser()){
+            $this->addFlash('warning', 'Il tuo responsabile non è registrato su questa app.');
+            return $this->redirectToRoute('app_home');
+        }
+
         if (null === $permit) {
             $permit = new Permit();
         }
@@ -60,7 +88,7 @@ final class PermitController extends AbstractController
             $permit = $form->getData();
             $permit->setEmployee($this->getUser());
             $this->permitRequestStateMachine->initiate($permit);
-            $this->permitRepository->add($permit, true);
+            $this->permitRepository->add($permit);
 
             return $this->redirectToRoute('app_permit_index', ['id' => $permit->getId()]);
         }
@@ -99,17 +127,18 @@ final class PermitController extends AbstractController
     }
 
     #[Route('/permit/doAction/{id}/{action}', name: 'app_permit_action')]
-    public function approve(Permit $permit, string $action): Response
+    public function doAction(Permit $permit, string $action): Response
     {
         // TODO assert action is valid string
         eval('$this->permitRequestStateMachine->'.$action.'($permit);');
-        return $this->redirectToRoute('app_permit_index');
+        return $this->redirectToRoute('app_permit_action_index');
     }
 
     #[Route('/permit/register/{id}', name: 'app_permit_register')]
     #[isGranted('ROLE_STAFF')]
     public function register(Permit $permit): Response
     {
+
         try {
             $this->permitRequestStateMachine->close($permit);
         } catch (NotEnabledTransitionException $e) {
