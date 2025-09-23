@@ -8,3 +8,20 @@ services:
       APP_SECRET: ${APP_SECRET}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
+
+  php-worker:
+    profiles:
+      - donotstart
+
+  php-worker-async:
+    extends:
+      file: compose.yaml
+      service: php-worker
+    image: ${IMAGES_PREFIX:-}app-php-worker-async
+    build:
+      context: .
+      target: frankenphp_prod
+    command: ['bin/console', 'messenger:consume', 'async', '-vvv', '--time-limit=60', '--limit=10', '--memory-limit=128M']
+    depends_on:
+      php:
+        condition: service_healthy

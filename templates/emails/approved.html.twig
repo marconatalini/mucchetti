@@ -14,6 +14,6 @@
 {#<p><code>{{ employee }}</code></p>#}
 
 <p>
-    <a href="{{ absolute_url(path('app_permit_register', {id: permit.id})) }}">RICEVUTO!</a>
+    <a href="{{ url('app_permit_register', {id: permit.id}) }}">RICEVUTO!</a>
 {#    (this link is valid until {{ new date('now') |date('F jS') }})#}
 </p>

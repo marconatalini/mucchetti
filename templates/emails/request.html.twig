@@ -13,7 +13,7 @@
 {#<p><code>{{ employee }}</code></p>#}
 <p>Clicca qui sotto per accedere all'elenco permessi</p>
 <p>
-    <a href="{{ absolute_url(path('app_permit_index')) }}">CONTROLLA permessi</a>
+    <a href="{{ url('app_permit_index') }}">CONTROLLA permessi</a>
 {#    <a href="{{ absolute_url(path('app_permit_action', {id: permit.id, action: 'approve'})) }}">Approva</a>#}
 {#    <a href="{{ absolute_url(path('app_permit_action', {id: permit.id, action: 'reject'})) }}">Rifiuta</a>#}
 </p>
