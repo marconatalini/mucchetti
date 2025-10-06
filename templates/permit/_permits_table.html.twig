@@ -2,33 +2,34 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">type</th>
-        <th scope="col">employee</th>
-        <th scope="col">start</th>
-        <th scope="col">end</th>
-        <th scope="col">days</th>
-        <th scope="col">hours</th>
+        <th scope="col">richiesta</th>
+        <th scope="col">dipendente</th>
+        <th scope="col">inizio</th>
+        <th scope="col">fine</th>
+{#        <th scope="col">days</th>#}
+{#        <th scope="col">hours</th>#}
         <th scope="col">status</th>
-        <th scope="col" class="text-end">action</th>
+        <th scope="col" class="text-end">azioni</th>
     </tr>
     </thead>
     <tbody>
+    {% dump(permits) %}
     {% for permit in permits %}
         <tr>
             <th>{{ permit.id }}</th>
-            <td>{{ permit.permitType }}</td>
+            <td>{{ permit.permitType|trans }}</td>
             <td>{{ permit.employee }}</td>
             <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
             <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
-            <td>{{ permit.days }}</td>
-            <td>{{ permit.hours }}</td>
-            <td>{{ permit.status }}</td>
+{#            <td>{{ permit.days }}</td>#}
+{#            <td>{{ permit.hours }}</td>#}
+            <td>{{ permit.status|trans }}</td>
             <td class="text-end">
                 {{ include('permit/_action.html.twig') }}
             </td>
         </tr>
     {% else %}
-        {% for i in 1..2 %}
+        {% for i in 1..8 %}
             <tr class="empty-row">
                 <td><span></span></td>
                 <td><span></span></td>
@@ -41,7 +42,7 @@
                 <td><span></span></td>
                 <td><span></span></td>
             </tr>
-            {% if 1 == loop.index %}
+            {% if 4 == loop.index %}
                 <tr class="no-result">
                     <td colspan="100" class="text-center">
                         Nessun Permesso.

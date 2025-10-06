@@ -19,22 +19,24 @@ class EmployeeType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
-            ->add('email', EmailType::class, [
-                'attr' => ['readonly' => true],
-            ])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-                'disabled' => $options['is_new']
-            ])
+            ->add('email', EmailType::class )
             ->add('parentUser', EntityType::class, [
                 'placeholder' => 'Select your boss',
                 'class' => User::class,
-                'choice_label' => 'firstName',
+                'required' => false
             ])
-            ->add('submit', SubmitType::class, [])
         ;
+
+        if ($options['is_new']) {
+            $builder
+                ->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Password'],
+                    'second_options' => ['label' => 'Repeat Password'],
+                ]);
+        }
+
+        $builder->add('save', SubmitType::class, []);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

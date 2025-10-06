@@ -1,12 +1,44 @@
-{% for transition in workflow_transitions(permit) %}
-    {% if workflow_can(permit, transition.name) %}
-        <a href="{{ path('app_permit_action' , {id: permit.id, action: transition.name}) }}" class="btn btn-outline-primary">{{ transition.name }}</a>
-    {% endif %}
-{% else %}
-    No actions available.
-{% endfor %}
+{#{% for transition in workflow_transitions(permit) %}#}
+{#    {% if workflow_can(permit, transition.name) %}#}
+{#        <a href="{{ path('app_permit_action' , {id: permit.id, action: transition.name}) }}" class="btn btn-outline-primary">{{ transition.name }}</a>#}
+{#    {% endif %}#}
+{#{% else %}#}
+{#    No actions available.#}
+{#{% endfor %}#}
 
-{% if workflow_can(permit, 'submit') %}
-    <a href="{{ path('app_permit_edit' , {id: permit.id}) }}" class="btn btn-outline-success">Modify</a>
+
+{% if workflow_can(permit, 'delete') %}
+    <a class="btn btn-outline-danger" href="{{ path('app_permit_action' , {action: 'delete', id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="cancella">
+        <i class="fa-solid fa-trash"></i>
+    </a>
 {% endif %}
 
+{% if workflow_can(permit, 'submit') or workflow_can(permit, 'review')%}
+    <a class="animate__animated animate__heartBeat animate__infinite animate__slow btn btn-outline-success" href="{{ path('app_permit_action' , {action: 'submit', id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="invia">
+        <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="btn btn-outline-secondary" href="{{ path('app_permit_edit' , {id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="modifica">
+        <i class="fa-solid fa-pencil"></i>
+    </a>
+{% endif %}
+
+{% if workflow_can(permit, 'approve') %}
+    <a class="btn btn-outline-danger" href="{{ path('app_permit_action' , {action: 'reject', id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="respingi">
+        <i class="fa-solid fa-backward"></i>
+    </a>
+    <a class="btn btn-outline-success" href="{{ path('app_permit_action' , {action: 'approve', id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="approva">
+        <i class="fa-solid fa-check"></i>
+    </a>
+{% endif %}
+
+{% if workflow_can(permit, 'close') %}
+    <a class="btn btn-outline-success" href="{{ path('app_permit_action' , {action: 'close', id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="registra">
+        <i class="fa-solid fa-check"></i>
+    </a>
+{% endif %}

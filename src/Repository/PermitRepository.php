@@ -80,12 +80,14 @@ class PermitRepository extends ServiceEntityRepository
      * @param array $users
      * @return array
      */
-    public function findActiveStaffPermits(Collection $staffUsers): array
+    public function findActiveStaffPermits(Collection $staffUsers, string $status): array
     {
 
         $qb = $this->createQueryBuilder('p')
             ->andWhere('p.startAt >= :now')
+            ->andWhere('p.status = :status')
             ->setParameter('now', new \DateTimeImmutable())
+            ->setParameter('status', $status)
             ->orderBy('p.startAt', 'ASC')
             ;
 

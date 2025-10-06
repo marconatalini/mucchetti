@@ -1,19 +1,47 @@
-{% set employee = permit.employee %}
-{% set boss = permit.employee.parentUser %}
+{% extends 'emails/baseEmail.html.twig' %}
 
-<h1>Buongiorno {{ boss }},</h1>
+{% block content %}
+    {% set employee = permit.employee %}
+    {% set boss = permit.employee.parentUser %}
 
-<p>
-    E' arrivata la richiesta di {{ permit.permitType}} di {{ employee.firstName }} {{ employee.lastName }} che <br>
-    inizierà il {{ permit.startAt | date('d/m/Y H:i') }} <br>
-    per finire il {{ permit.endAt | date('d/m/Y H:i') }} <br>
-    è stata inserita nel sistema Mucchetti il {{ permit.requestAt | date('d/m/Y H:i') }}.
-</p>
+    <spacer size="20"></spacer>
+    <row>
+        <columns>
+            <p>
+                {{ permit.employee }} ha inoltrato la seguente richiesta di {{ permit.permitType|trans }}:
+            </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                </tr>
+                <tr>
+                    <td>{{ permit.id }}</td>
+                    <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
+                    <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
+                </tr>
+            </table>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <p>Clicca qui per approvare o respingere la richiesta. Una mail sarà inviata automaticamente all'ufficio personale o al dipendente.</p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <button class="success" href="{{ url('app_permit_action', {action: 'approve', id: permit.id}) }}">Approva</button>
+        </columns>
+        <columns>
+            <button class="danger" href="{{ url('app_permit_action', {action: 'reject', id: permit.id}) }}">Rifiuta</button>
+        </columns>
+        <columns class="expander"></columns>
+    </row>
 
-{#<p><code>{{ employee }}</code></p>#}
-<p>Clicca qui sotto per accedere all'elenco permessi</p>
-<p>
-    <a href="{{ url('app_permit_index') }}">CONTROLLA permessi</a>
-{#    <a href="{{ absolute_url(path('app_permit_action', {id: permit.id, action: 'approve'})) }}">Approva</a>#}
-{#    <a href="{{ absolute_url(path('app_permit_action', {id: permit.id, action: 'reject'})) }}">Rifiuta</a>#}
-</p>
+{% endblock %}
+

@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+    font-family: Helvetica, Arial, sans-serif;
+}
+h1 {
+    background-color: #32718d;
+    color: #ffffff;
+    /*padding: 30px 0 50px 0;*/
+    font-weight: normal;
+}
+hr {
+    border: none;
+    border-top: 3px solid #32718d;
+    margin: 20px;
+}
+.welcome {
+    background-color: #32718d;
+}
+.bottom {
+    background-color: #efefee;
+}
+.logo {
+    width: 50%;
+}
+.text-center {
+    text-align: center;
+}
+
+table.button.success table td {
+    background: #ff2d47;
+    border: 0px solid #ff2d47; }
+
+table.button.danger table td {
+    background: #32718d;
+    border: 0px solid #32718d; }
+
+
+/*table.button table td {*/
+/*    background-color: #264459;*/
+/*    border: 2px solid #264459;*/
+/*}*/

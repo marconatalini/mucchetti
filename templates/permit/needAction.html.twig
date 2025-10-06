@@ -15,7 +15,7 @@
 
 {% block main %}
     <h3>Ciao {{ app.user.firstName }}, questi sono i permessi da visionare.</h3>
-    {% if app.user.staffMembers | length > 0 %}
+    {% if app.user.staffMembers | length > 0 or is_granted("ROLE_STAFF")%}
         {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
     {% endif %}
     <a href="{{ path('app_permit_calendar') }}" class="btn btn-outline-success">Calendario

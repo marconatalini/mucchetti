@@ -1,19 +1,44 @@
-{# templates/emails/signup.html.twig #}
-<h1>Buongiorno Mariolina,</h1>
+{% extends 'emails/baseEmail.html.twig' %}
 
-{% set employee = permit.employee %}
-{% set boss = permit.employee.parentUser %}
+{% block content %}
+    {% set employee = permit.employee %}
+    {% set boss = permit.employee.parentUser %}
 
-<p>
-    La richiesta di permesso di {{ employee.firstName }} {{ employee.lastName }} che <br>
-    inizia il {{ permit.startAt | date('d/m/Y H:i') }} <br>
-    e finisce il {{ permit.endAt | date('d/m/Y H:i') }} <br>
-    è stata approvata da {{ boss.firstName }} {{ boss.lastName }} il {{ permit.evaluatedAt | date('d/m/Y H:i') }}.
-</p>
+    <spacer size="20"></spacer>
+    <row>
+        <columns>
+            <p>
+                {{ permit.employee }} ha inoltrato la seguente richiesta di {{ permit.permitType|trans }}:
+            </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                </tr>
+                <tr>
+                    <td>{{ permit.id }}</td>
+                    <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
+                    <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
+                </tr>
+            </table>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <p>La richiesta è stata <strong>APPROVATA</strong> da {{ boss }} in data {{ permit.evaluatedAt | date('d.m.Y H:i')}} </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <button class="success" href="{{ url('app_permit_register', {id: permit.id}) }}">OK, registrato</button>
+        </columns>
+        <columns class="expander"></columns>
+    </row>
 
-{#<p><code>{{ employee }}</code></p>#}
+{% endblock %}
 
-<p>
-    <a href="{{ url('app_permit_register', {id: permit.id}) }}">RICEVUTO!</a>
-{#    (this link is valid until {{ new date('now') |date('F jS') }})#}
-</p>

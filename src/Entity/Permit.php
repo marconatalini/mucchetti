@@ -9,9 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PermitRepository::class)]
 class Permit
 {
-    public const array TYPES = ['Permesso', 'Permesso non retribuito', 'Ferie', 'Legge 104'];
+    public const array TYPES = ['Permit', 'Permit unpaid', 'Holidays', 'Permit 104 law'];
 
     public const STATUS_START = 'start';
+    public const STATUS_SUBMITTED = 'submitted';
     public const STATUS_REVIEW = 'review';
     public const STATUS_APPROVED = 'approved';
     public const STATUS_REGISTERED = 'registered';
@@ -24,7 +25,7 @@ class Permit
     #[ORM\ManyToOne(inversedBy: 'permits')]
     private ?User $employee = null;
 
-    #[Assert\GreaterThanOrEqual('now', message: 'Inserire data/ora futura')]
+    #[Assert\GreaterThanOrEqual('now', message: 'only.future.date')]
     #[ORM\Column]
     private ?\DateTimeImmutable $startAt = null;
 
@@ -52,9 +53,9 @@ class Permit
 
     #[ORM\Column]
     #[Assert\Expression(
-        "(this.getPermitType() == 'Permesso' and this.isAgreeUnpaid() == true) or
-        this.getPermitType() != 'Permesso' and (this.isAgreeUnpaid() == false)",
-        message: 'Solo se hai chiesto permesso è obbligatorio esprimere il consenso alla decurtazione.',
+        "(this.getPermitType() == 'Permit' and this.isAgreeUnpaid() == true) or
+        this.getPermitType() != 'Permit' and (this.isAgreeUnpaid() == false)",
+        message: 'agree.only.on.permit',
     )]
     private ?bool $agreeUnpaid = false;
 

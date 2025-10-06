@@ -1,0 +1,24 @@
+no.boss.registered: 'Il tuo Boss non è registrato su questa App'
+write.initial.select.from.list: "Scrivi il nome e scegli dall'elenco suggerito"
+user.not.found: 'Utente non trovato'
+user.has.not.permit: '{user} non è in permesso'
+user.has.permit.since.end: '{user} non sarà presente fino a {end}'
+do.action.on.permitId: "Hai eseguito l'azione {action} sul permesso #{permitId}"
+can.not.action: "L'azione \"{action}\" non è possibile."
+'First name': Nome
+'Last name': Cognome
+'Parent user': Responsabile
+'Select your boss': 'Seleziona chi autorizza le tue richieste'
+'Repeat Password': 'Ripeti Password'
+Submit: Invia
+Save: Salva
+employee.saved.login: 'Utente salvato, puoi procedere al Login'
+employee.saved: 'Utente salvato'
+'Permit type': 'Tipo permesso'
+Permit: Permesso
+'Permit unpaid': 'Permesso non retribuito'
+Holidays: Ferie
+'Permit 104 law': 'Permesso Legge 104'
+'Start at': Inizio
+'End at': Fine
+'Agree unpaid': 'Accetto che il permesso non sia retribuito qualora non ne abbia maturato il diritto'

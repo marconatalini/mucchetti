@@ -10,6 +10,6 @@ import {Alert} from 'bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
-
+import 'animate.css/animate.min.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

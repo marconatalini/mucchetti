@@ -6,6 +6,7 @@ use App\Entity\Permit;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 class PermitSubscriber implements EventSubscriberInterface
 {
@@ -13,7 +14,7 @@ class PermitSubscriber implements EventSubscriberInterface
     {
     }
 
-    public function onWorkflowPermitRequestEnteredStart($event): void
+    public function onWorkflowPermitRequestCompleteSubmit($event): void
     {
         /** @var Permit $permit */
         $permit = $event->getSubject();
@@ -24,7 +25,10 @@ class PermitSubscriber implements EventSubscriberInterface
         );
 
         $email = (new TemplatedEmail())
-            ->to($permit->getEmployee()->getParentUser()->getEmail())
+            ->to(new Address(
+                $permit->getEmployee()->getParentUser()->getEmail(),
+                $permit->getEmployee()->getParentUser(),
+            ))
             ->subject($mailSubject)
             ->htmlTemplate('emails/request.html.twig')
             ->context(['permit' => $permit,])
@@ -45,7 +49,10 @@ class PermitSubscriber implements EventSubscriberInterface
         );
 
         $email = (new TemplatedEmail())
-            ->to($permit->getEmployee()->getEmail())
+            ->to(new Address(
+                $permit->getEmployee()->getEmail(),
+                $permit->getEmployee(),
+            ))
             ->subject($mailSubject)
             ->htmlTemplate('emails/reject.html.twig')
             ->context(['permit' => $permit,])
@@ -68,7 +75,7 @@ class PermitSubscriber implements EventSubscriberInterface
 
         $email = (new TemplatedEmail())
 //            ->from('hello@example.com')
-            ->to('personale@europrofiligroup.it')
+            ->to(new Address('personale@europrofiligroup.it', 'Mariolina'))
             ->cc($permit->getEmployee()->getEmail())
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
@@ -90,7 +97,8 @@ class PermitSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'workflow.permit_request.entered.start' => 'onWorkflowPermitRequestEnteredStart',
+//            'workflow.permit_request.entered.start' => 'onWorkflowPermitRequestEnteredStart',
+            'workflow.permit_request.completed.submit' => 'onWorkflowPermitRequestCompleteSubmit',
             'workflow.permit_request.completed.approve' => 'onWorkflowPermitRequestCompleteApprove',
             'workflow.permit_request.completed.reject' => 'onWorkflowPermitRequestCompleteReject',
         ];

@@ -64,15 +64,15 @@ services:
       # - ./docker/db/data:/var/lib/mysql:rw
 ###< doctrine/doctrine-bundle ###
 
-  php-worker:
-    image: ${IMAGES_PREFIX:-}app-php-worker
-    restart: unless-stopped
-    environment:
-      - RUN_MIGRATIONS=false
-    healthcheck:
-      disable: true
-    depends_on:
-      - php
+#  php-worker:
+#    image: ${IMAGES_PREFIX:-}app-php-worker
+#    restart: unless-stopped
+#    environment:
+#      - RUN_MIGRATIONS=false
+#    healthcheck:
+#      disable: true
+#    depends_on:
+#      - php
 
 volumes:
   caddy_data:

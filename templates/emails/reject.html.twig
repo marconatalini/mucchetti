@@ -1,20 +1,43 @@
-{% set employee = permit.employee %}
-{% set boss = permit.employee.parentUser %}
+{% extends 'emails/baseEmail.html.twig' %}
 
-<h1>Buongiorno {{ employee }},</h1>
+{% block content %}
+    {% set employee = permit.employee %}
+    {% set boss = permit.employee.parentUser %}
 
-<p>
-    La tua richiesta di {{ permit.permitType}} che <br>
-    inizierà il {{ permit.startAt | date('d/m/Y H:i') }} <br>
-    per finire il {{ permit.endAt | date('d/m/Y H:i') }} <br>
-    è stata RESPINTA !!
+    <spacer size="20"></spacer>
+    <row>
+        <columns>
+            <p>
+                La tua richiesta di {{ permit.permitType|trans }} è stata respinta. Puoi modificarla e reinoltrarla.
+            </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                </tr>
+                <tr>
+                    <td>{{ permit.id }}</td>
+                    <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
+                    <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
+                </tr>
+            </table>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <p>Clicca qui per modificare la tua richiesta.</p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <button class="success" href="{{ url('app_permit_edit', {id: permit.id}) }}">Modifica</button>
+        </columns>
+    </row>
 
-    Puoi modificarla e re-inoltrarla cliccando qui sotto.
-</p>
+{% endblock %}
 
-{#<p><code>{{ employee }}</code></p>#}
-
-<p>
-    <a href="{{ url('app_permit_index') }}">VAI AL SITO</a>
-{#    <a href="{{ absolute_url(path('app_permit_action', {action: 'reject', id: permit.id, })) }}">RESPINGI absolute</a>#}
-</p>

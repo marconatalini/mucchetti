@@ -11,6 +11,7 @@ framework:
             initial_marking: start
             places:
                 - start
+                - submitted
                 - review
                 - approved
                 - registered
@@ -18,19 +19,19 @@ framework:
             transitions:
                 delete:
                     guard: "user == subject.getEmployee()"
-                    from: start
+                    from: [start, review]
                     to: delete
                 submit:
                     guard: "user == subject.getEmployee()"
-                    from: review
-                    to: start
+                    from: [start, review]
+                    to: submitted
                 approve:
                     guard: "is_granted('ROLE_BOSS') and user != subject.getEmployee()"
-                    from: start
+                    from: submitted
                     to: approved
                 reject:
                     guard: "is_granted('ROLE_BOSS') and user != subject.getEmployee()"
-                    from: start
+                    from: submitted
                     to: review
                 close:
                     guard: "is_granted('ROLE_STAFF')"
