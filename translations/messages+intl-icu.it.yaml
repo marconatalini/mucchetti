@@ -13,6 +13,7 @@ can.not.action: "L'azione \"{action}\" non è possibile."
 Submit: Invia
 Save: Salva
 employee.saved.login: 'Utente salvato, puoi procedere al Login'
+employee.password.reset: 'Nuova password salvata'
 employee.saved: 'Utente salvato'
 'Permit type': 'Tipo permesso'
 Permit: Permesso

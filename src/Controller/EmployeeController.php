@@ -7,6 +7,9 @@ use App\Form\EmployeeType;
 use App\Repository\PermitRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -54,6 +57,37 @@ final class EmployeeController extends AbstractController
         }
 
         return $this->render('employee/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/employee/reset', name: 'app_employee_reset')]
+    public function reset(Request $request): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Password'],
+                    'second_options' => ['label' => 'Repeat Password'],
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Reset'])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
+            $plain_password = $form->getData()['password'];
+            $user = $this->getUser();
+            $hashedPassword = $this->userPasswordHasher->hashPassword($user, $plain_password);
+            $user->setPassword($hashedPassword);
+
+            $this->userRepository->add(user: $user);
+            $this->addFlash('success', 'employee.password.reset');
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('employee/reset.html.twig', [
             'form' => $form,
         ]);
     }

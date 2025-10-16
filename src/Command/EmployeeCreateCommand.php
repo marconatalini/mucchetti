@@ -15,10 +15,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'create:employee',
+    name: 'employee:create',
     description: 'Create a new employee',
 )]
-class CreateEmployeeCommand extends Command
+class EmployeeCreateCommand extends Command
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
@@ -52,11 +52,11 @@ class CreateEmployeeCommand extends Command
             $user->setEmail($email);
             $user->setPassword($password);
             $fullname = explode('@', $email)[0];
-            $user->setFirstName(explode('.',$fullname)[0]);
-            $user->setLastName(explode('.',$fullname)[1]);
+            $user->setFirstName(ucfirst(explode('.',$fullname)[0]));
+            $user->setLastName(ucfirst(explode('.',$fullname)[1]));
         }
 
-        if ($input->getOption('firstname')) {
+        if ($input->getOption('firstname') && $input->getOption('lastname')) {
             $user->setFirstname($input->getOption('firstname'));
             $user->setLastname($input->getOption('lastname'));
         }
