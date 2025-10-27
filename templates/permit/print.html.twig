@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stampa permesso{% endblock %}
+
+{% block importmap %}
+    {{ parent() }}
+{% endblock %}
+
+{% block mainclass %}col-lg-6 m-lg-auto{% endblock %}
+
+{% block main %}
+    {% set employee = permit.employee %}
+    {% set boss = permit.employee.parentUser %}
+    <p>
+        {{ permit.employee }} ha inoltrato la seguente richiesta di {{ permit.permitType|trans }}:
+    </p>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Inizio</th>
+            <th>Fine</th>
+            <th>Ok, non retribuito</th>
+        </tr>
+        <tr>
+            <td>{{ permit.id }}</td>
+            <td>{{ permit.startAt | date('d.m.Y H:i') }}</td>
+            <td>{{ permit.endAt | date('d.m.Y H:i') }}</td>
+            <td>
+                {% if permit.agreeUnpaid %}
+                    <i class="fa-solid fa-check"></i>
+                {% else %}
+                    <i class="fa-solid fa-xmark"></i>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    {% if permit.agreeUnpaid %}
+        <p>Il dipendente ha accettato esplicitamente che la richiesta di {{ permit.permitType|trans }} non sia retribuita qualora non ne abbia maturato il diritto.</p>
+    {% endif %}
+    <p>La richiesta è stata <strong>APPROVATA</strong> da {{ boss }} in data {{ permit.evaluatedAt | date('d.m.Y H:i')}} </p>
+{% endblock %}

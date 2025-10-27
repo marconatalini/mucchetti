@@ -149,4 +149,4 @@ Error: Errore
 'Please select a valid range.': 'Per favore, seleziona un intervallo valido.'
 'Please enter a valid week.': 'Per favore, inserisci una settimana valida.'
 'only.future.date': 'Inserire data/ora futura'
-'agree.only.on.permit': 'Solo se hai chiesto permesso è obbligatorio esprimere il consenso alla decurtazione.'
+'agree.only.on.permit': 'Se hai chiesto permesso o ferie è obbligatorio esprimere il consenso alla decurtazione.'

@@ -66,10 +66,10 @@ class PermitRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.employee = :user')
-            ->andWhere('p.startAt >= :now')
+            ->andWhere('p.startAt >= :start')
             ->setParameter('user', $user)
-            ->setParameter('now', new \DateTimeImmutable())
-            ->orderBy('p.startAt', 'ASC')
+            ->setParameter('start', new \DateTimeImmutable("now - 1 month"))
+            ->orderBy('p.startAt', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -84,11 +84,11 @@ class PermitRepository extends ServiceEntityRepository
     {
 
         $qb = $this->createQueryBuilder('p')
-            ->andWhere('p.startAt >= :now')
+            ->andWhere('p.startAt >= :start')
             ->andWhere('p.status = :status')
-            ->setParameter('now', new \DateTimeImmutable())
+            ->setParameter('start', new \DateTimeImmutable("now - 2 months"))
             ->setParameter('status', $status)
-            ->orderBy('p.startAt', 'ASC')
+            ->orderBy('p.startAt', 'DESC')
             ;
 
         return $this->addStaffUserWhereClause($qb, $staffUsers)->getQuery()->getResult();

@@ -53,8 +53,10 @@ class Permit
 
     #[ORM\Column]
     #[Assert\Expression(
-        "(this.getPermitType() == 'Permit' and this.isAgreeUnpaid() == true) or
-        this.getPermitType() != 'Permit' and (this.isAgreeUnpaid() == false)",
+        "(this.isAgreeUnpaid() == true and this.getPermitType() == 'Permit') or
+        (this.isAgreeUnpaid() == true and this.getPermitType() == 'Holidays') or
+        (this.isAgreeUnpaid() == false and this.getPermitType() == 'Permit unpaid') or
+        (this.isAgreeUnpaid() == false and this.getPermitType() == 'Permit 104 law')",
         message: 'agree.only.on.permit',
     )]
     private ?bool $agreeUnpaid = false;

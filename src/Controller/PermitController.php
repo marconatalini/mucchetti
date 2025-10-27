@@ -142,6 +142,17 @@ final class PermitController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+    #[Route('/permit/print/{id}', name: 'app_permit_print')]
+    #[isGranted('ROLE_STAFF')]
+    public function print(Permit $permit): Response
+    {
+       return $this->render('permit/print.html.twig', [
+           'permit' => $permit,
+       ]);
+    }
+
+
+
 
     #[Route(path: '/permit/calendar/json', name: 'app_permit_calendar_json', methods: ['POST'])]
     public function customer_order_calendar_json(Request $request): JsonResponse

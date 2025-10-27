@@ -41,4 +41,15 @@
        data-bs-toggle="tooltip" title="registra">
         <i class="fa-solid fa-check"></i>
     </a>
+    <a class="btn btn-outline-secondary" href="{{ path('app_permit_print', {id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="stampa">
+        <i class="fa-solid fa-print"></i>
+    </a>
+{% endif %}
+
+{% if permit.status == 'registered' %}
+    <a class="btn btn-outline-secondary" href="{{ path('app_permit_print', {id: permit.id}) }}"
+       data-bs-toggle="tooltip" title="stampa">
+        <i class="fa-solid fa-print"></i>
+    </a>
 {% endif %}
