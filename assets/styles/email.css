@@ -28,11 +28,11 @@ hr {
     text-align: center;
 }
 
-table.button.success table td {
+.success a {
     background: #ff2d47;
     border: 0px solid #ff2d47; }
 
-table.button.danger table td {
+.danger a {
     background: #32718d;
     border: 0px solid #32718d; }
 
