@@ -14,7 +14,8 @@
 
 
 {% block main %}
-    <h3>Ciao {{ app.user.firstName }}, questi sono i permessi da visionare.</h3>
+    <h3>Ciao {{ app.user.firstName }}</h3>
+    <p>Oggi {{ date('now')|date('d.m.Y') }}, queste sono le richieste da valutare.</p>
     {% if app.user.staffMembers | length > 0 or is_granted("ROLE_STAFF")%}
         {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
     {% endif %}

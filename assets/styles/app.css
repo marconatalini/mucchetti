@@ -6,6 +6,11 @@ body {
     /*background-color: skyblue;*/
 }
 
+li.vertical-divider {
+    border: 2px solid lightgray;
+    margin: 0 15px;
+}
+
 /*form signin*/
 .form-signin {
     max-width: 330px;

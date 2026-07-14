@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 //use function Doctrine\ORM\QueryBuilder;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class PermitRepository extends ServiceEntityRepository
 {
+    public const PERMITS_PER_PAGE = 5;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -62,17 +64,20 @@ class PermitRepository extends ServiceEntityRepository
      * @param UserInterface $user
      * @return array
      */
-    public function findActivePermitByUser(UserInterface $user): array
+    public function findActivePermitByUser(UserInterface $user, int $offset): Paginator
     {
-        return $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->where('p.employee = :user')
-            ->andWhere('p.startAt >= :start')
+//            ->andWhere('p.startAt >= :start')
             ->setParameter('user', $user)
-            ->setParameter('start', new \DateTimeImmutable("now - 1 month"))
+//            ->setParameter('start', new \DateTimeImmutable("now - 1 month"))
             ->orderBy('p.startAt', 'DESC')
+            ->setMaxResults(self::PERMITS_PER_PAGE)
+            ->setfirstResult($offset)
             ->getQuery()
-            ->getResult()
             ;
+
+        return new Paginator($query);
 
     }
 

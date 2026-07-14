@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Workflow\Exception\LogicException;
@@ -29,10 +30,18 @@ final class PermitController extends AbstractController
     }
 
     #[Route('/permit', name: 'app_permit_index')]
-    public function index(): Response
+    public function index(#[MapQueryParameter(options: ['min_range' => 0])] int $offset = 0): Response
     {
+        if ($this->isGranted('ROLE_STAFF') or $this->isGranted('ROLE_BOSS')) {
+            return $this->redirectToRoute('app_permit_action_index');
+        }
+
+        $paginator = $this->permitRepository->findActivePermitByUser($this->getUser(), $offset);
+
         return $this->render('permit/index.html.twig', [
-            'permits' => $this->permitRepository->findActivePermitByUser($this->getUser()),
+            'permits' => $paginator,
+            'previous' => $offset - PermitRepository::PERMITS_PER_PAGE,
+            'next' => min(count($paginator), $offset + PermitRepository::PERMITS_PER_PAGE),
         ]);
     }
 
@@ -143,7 +152,7 @@ final class PermitController extends AbstractController
     }
 
     #[Route('/permit/print/{id}', name: 'app_permit_print')]
-    #[isGranted('ROLE_STAFF')]
+//    #[isGranted('ROLE_STAFF')]
     public function print(Permit $permit): Response
     {
        return $this->render('permit/print.html.twig', [

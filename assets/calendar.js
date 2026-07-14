@@ -3,6 +3,7 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import itLocale from '@fullcalendar/core/locales/it';
 
 
 document.addEventListener("DOMContentLoaded", (evt) => {
@@ -12,13 +13,14 @@ document.addEventListener("DOMContentLoaded", (evt) => {
   let calendar = new Calendar(calendarEl, {
     plugins: [dayGridPlugin, interactionPlugin, bootstrapPlugin],
     initialView: 'dayGridMonth',
+    locale: 'it',
     eventSources: [
       {
         // url: 'http://tennis.locale/prenotazione/json',
         url: urlEvents.getAttribute('href'),
         method: 'POST',
         failure: function() {
-          alert('there was an error while fetching events!');
+          alert('Errore durante la ricerca dei permessi!');
         },
       }
     ],

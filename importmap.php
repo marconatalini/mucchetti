@@ -80,4 +80,7 @@ return [
         'version' => '4.1.1',
         'type' => 'css',
     ],
+    '@fullcalendar/core/locales/it' => [
+        'version' => '5.11.5',
+    ],
 ];
