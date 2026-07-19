@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stampa dichiarazione{% endblock %}
+
+{% block importmap %}
+    {{ parent() }}
+{% endblock %}
+
+{% block mainclass %}col-lg-6 m-lg-auto{% endblock %}
+
+{% block main %}
+    {% set employee = stamping.employee %}
+    {% set boss = stamping.employee.parentUser %}
+    <h3 class="mb-3">Mancata TIMBRATURA</h3>
+    <p>Io, {{ stamping.employee }} comunico che in data {{ stamping.missedAt|date('d.m.Y')}} non ho effettuato regolare timbratura in
+        <strong>{{ stamping.stampingType|trans|upper }}</strong>
+    </p>
+    <p>Faccio presente che sono {% if stamping.stampingType == 'Income' %}ENTRATO in {% else %}USCITO dall'{% endif%}azienda alle ore {{ stamping.missedAt|date('H:i') }}</p>
+
+    <p>La richiesta è stata <strong>VISIONATA</strong> da {{ boss }} in data {{ stamping.evaluatedAt | date('d.m.Y H:i')}} </p>
+{% endblock %}

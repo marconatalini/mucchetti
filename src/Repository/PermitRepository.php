@@ -89,9 +89,9 @@ class PermitRepository extends ServiceEntityRepository
     {
 
         $qb = $this->createQueryBuilder('p')
-            ->andWhere('p.startAt >= :start')
+//            ->andWhere('p.startAt >= :start')
             ->andWhere('p.status = :status')
-            ->setParameter('start', new \DateTimeImmutable("now - 2 months"))
+//            ->setParameter('start', new \DateTimeImmutable("now - 2 months"))
             ->setParameter('status', $status)
             ->orderBy('p.startAt', 'DESC')
             ;

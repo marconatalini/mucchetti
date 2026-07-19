@@ -17,7 +17,7 @@
     <h3>Ciao {{ app.user.firstName }}</h3>
     <p>Oggi {{ date('now')|date('d.m.Y') }}, queste sono le richieste da valutare.</p>
     {% if app.user.staffMembers | length > 0 or is_granted("ROLE_STAFF")%}
-        {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
+        {{ include('stamping/_stamping_table.html.twig', {stampings : staffMissedStamping}) }}
     {% endif %}
 {#    <a href="{{ path('app_permit_calendar') }}" class="btn btn-outline-success">Calendario#}
 {#        <i class="fa-regular fa-calendar-check"></i>#}

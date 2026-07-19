@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Timbrature{% endblock %}
+
+{% block mainclass %}container pt-3{% endblock %}
+
+{% block head %}
+{#    <meta name="turbo-cache-control" content="no-cache">#}
+{% endblock %}
+
+{% block importmap %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block main %}
+    <h3>Elenco mancate timbrature di {{ app.user.firstName }} {{ app.user.lastName }} </h3>
+    <p>Oggi {{ date('now')|date('d.m.Y') }}, qui puoi controllare la lista delle mancate timbrature.</p>
+    {% if app.user.parentUser %}
+        <a href="{{ path('app_stamping_new') }}" class="btn btn-success mb-3">Nuova dichiarazione</a>
+    {% endif %}
+    {{ include('stamping/_stamping_table.html.twig') }}
+{% endblock %}

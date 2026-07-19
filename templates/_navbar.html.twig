@@ -12,29 +12,18 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Home</a>
-                </li>
-                <li class="vertical-divider"></li>
-                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ path('app_permit_calendar') }}">{{ 'Calendar'|trans }}</a>
                 </li>
                 <li class="vertical-divider"></li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ path('app_permit_index') }}">{{ 'Requests'|trans }}</a>
+                    <a class="nav-link" aria-current="page" href="{{ path('app_permit_index') }}">{{ 'Permits'|trans }}</a>
+                </li>
+                <li class="vertical-divider"></li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ path('app_stamping_index') }}">{{ 'Stampings'|trans }}</a>
                 </li>
                 <li class="vertical-divider"></li>
 
-                {% if is_granted('ROLE_BOSS') or is_granted('ROLE_STAFF')%}
-
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_permit_new') }}">{{ 'new.request'|trans }}</a>
-                    </li>
-                    <li class="vertical-divider"></li>
-                {% endif %}
-                {#<li class       ="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>#}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">

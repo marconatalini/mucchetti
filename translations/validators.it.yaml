@@ -150,3 +150,6 @@ Error: Errore
 'Please enter a valid week.': 'Per favore, inserisci una settimana valida.'
 'only.future.date': 'Inserire data/ora futura'
 'agree.only.on.permit': 'Se hai chiesto permesso o ferie è obbligatorio esprimere il consenso alla decurtazione.'
+'too.late.for.permit': "Troppo tardi per un permesso post-datato. Hai 30 ore di tempo."
+'end.must.be.after.start': "Inserire data/ora successiva all'inizio"
+'date.past.needed': "Data e ora devono essere passate"

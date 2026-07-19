@@ -4,7 +4,8 @@ framework:
         dsn: '%env(MAILER_DSN)%'
         envelope:
             sender: 'noreply@europrofiligroup.net'
-            recipients: ['marco.natalini@europrofiligroup.it']
+#            route all mail to...
+#            recipients: ['marco.natalini@europrofiligroup.it']
         headers:
             From: 'Permessi <noreply@europrofiligroup.net>'
 #            Bcc: 'baz@example.com'

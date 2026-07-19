@@ -60,10 +60,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Permit::class, mappedBy: 'employee')]
     private Collection $permits;
 
+    /**
+     * @var Collection<int, Stamping>
+     */
+    #[ORM\OneToMany(targetEntity: Stamping::class, mappedBy: 'employee')]
+    private Collection $stampings;
+
     public function __construct()
     {
         $this->staffMembers = new ArrayCollection();
         $this->permits = new ArrayCollection();
+        $this->stampings = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -267,6 +274,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($permit->getEmployee() === $this) {
                 $permit->setEmployee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stamping>
+     */
+    public function getStampings(): Collection
+    {
+        return $this->stampings;
+    }
+
+    public function addStamping(Stamping $stamping): static
+    {
+        if (!$this->stampings->contains($stamping)) {
+            $this->stampings->add($stamping);
+            $stamping->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStamping(Stamping $stamping): static
+    {
+        if ($this->stampings->removeElement($stamping)) {
+            // set the owning side to null (unless already changed)
+            if ($stamping->getEmployee() === $this) {
+                $stamping->setEmployee(null);
             }
         }
 

@@ -25,11 +25,11 @@ class Permit
     #[ORM\ManyToOne(inversedBy: 'permits')]
     private ?User $employee = null;
 
-    #[Assert\GreaterThanOrEqual('now', message: 'only.future.date')]
+    #[Assert\GreaterThanOrEqual('now - 30 hours', message: 'too.late.for.permit')]
     #[ORM\Column]
     private ?\DateTimeImmutable $startAt = null;
 
-//    #[Assert\Expression('endAt > startAt', message: 'Inserire data/ora successiva all\'inizio')]
+    #[Assert\Expression('this.getEndAt() > this.getStartAt()', message: 'end.must.be.after.start')]
     #[ORM\Column]
     private ?\DateTimeImmutable $endAt = null;
 
@@ -60,6 +60,9 @@ class Permit
         message: 'agree.only.on.permit',
     )]
     private ?bool $agreeUnpaid = false;
+
+    #[ORM\Column]
+    private ?bool $postdated = false;
 
     public function __construct()
     {
@@ -194,6 +197,18 @@ class Permit
     public function setAgreeUnpaid(bool $agreeUnpaid): static
     {
         $this->agreeUnpaid = $agreeUnpaid;
+
+        return $this;
+    }
+
+    public function isPostdated(): ?bool
+    {
+        return $this->postdated;
+    }
+
+    public function setPostdated(bool $postdated): static
+    {
+        $this->postdated = $postdated;
 
         return $this;
     }

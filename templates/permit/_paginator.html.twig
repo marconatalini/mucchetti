@@ -10,11 +10,6 @@
 {#            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>#}
 {#        </li>#}
 {#        <li class="page-item"><a class="page-link" href="#">3</a></li>#}
-        {% if app.user.parentUser %}
-            <li class="page-item">
-                <a href="{{ path('app_permit_new') }}" class="btn btn-success">Nuova richiesta</a>
-            </li>
-        {% endif %}
         <li class="page-item {% if next >= permits|length %}disabled{% endif %}">
             <a class="page-link" href="{{ path('app_permit_index', { offset: next }) }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>

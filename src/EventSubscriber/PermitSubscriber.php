@@ -30,7 +30,7 @@ class PermitSubscriber implements EventSubscriberInterface
                 $permit->getEmployee()->getParentUser(),
             ))
             ->subject($mailSubject)
-            ->htmlTemplate('emails/request.html.twig')
+            ->htmlTemplate('emails/permit/request.html.twig')
             ->context(['permit' => $permit,])
         ;
 
@@ -54,7 +54,7 @@ class PermitSubscriber implements EventSubscriberInterface
                 $permit->getEmployee(),
             ))
             ->subject($mailSubject)
-            ->htmlTemplate('emails/reject.html.twig')
+            ->htmlTemplate('emails/permit/reject.html.twig')
             ->context(['permit' => $permit,])
         ;
 
@@ -84,7 +84,7 @@ class PermitSubscriber implements EventSubscriberInterface
 //            ->text('Sending emails is fun again!')
 //            ->html('<p>See Twig integration for better HTML integration!</p>');
             // path of the Twig template to render
-            ->htmlTemplate('emails/approved.html.twig')
+            ->htmlTemplate('emails/permit/approved.html.twig')
             ->context(['permit' => $permit,])
             ;
 

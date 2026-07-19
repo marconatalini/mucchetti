@@ -62,20 +62,20 @@ final class PermitController extends AbstractController
 //        ]);
 //    }
 
-    #[Route('/permit/action', name: 'app_permit_action_index')]
-    public function needActionIndex(): Response
-    {
-        if ($this->isGranted("ROLE_STAFF")) {
-            $staffPermits = $this->permitRepository->findAll();
-        } else {
-            $staffPermits = $this->permitRepository->findActiveStaffPermits(
-                $this->getUser()->getStaffMembers(), PermitRequestState::SUBMITTED);
-        }
+        #[Route('/permit/action', name: 'app_permit_action_index')]
+        public function needActionIndex(): Response
+        {
+            if ($this->isGranted("ROLE_STAFF")) {
+                $staffPermits = $this->permitRepository->findBy([],['id' => 'DESC']);
+            } else {
+                $staffPermits = $this->permitRepository->findActiveStaffPermits(
+                    $this->getUser()->getStaffMembers(), PermitRequestState::SUBMITTED);
+            }
 
-        return $this->render('permit/needAction.html.twig', [
-            'staffPermits' => $staffPermits
-        ]);
-    }
+            return $this->render('permit/needAction.html.twig', [
+                'staffPermits' => $staffPermits
+            ]);
+        }
 
     #[Route('/permit/new', name: 'app_permit_new')]
     #[Route('/permit/edit/{id}', name: 'app_permit_edit')]
@@ -97,6 +97,7 @@ final class PermitController extends AbstractController
             $permit = $form->getData();
             $permit->setEmployee($this->getUser());
             $this->permitRequestStateMachine->initiate($permit);
+            ##TODO eval post-dated permit
             $this->permitRepository->add($permit);
 
             return $this->redirectToRoute('app_permit_index');

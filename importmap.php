@@ -83,4 +83,7 @@ return [
     '@fullcalendar/core/locales/it' => [
         'version' => '5.11.5',
     ],
+    '@fullcalendar/timegrid' => [
+        'version' => '5.11.5',
+    ],
 ];

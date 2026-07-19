@@ -11,6 +11,7 @@
 {% block main %}
     {% set employee = permit.employee %}
     {% set boss = permit.employee.parentUser %}
+    <h3 class="mb-3">Richiesta di {{ permit.permitType|trans|upper }}</h3>
     <p>
         {{ permit.employee }} ha inoltrato la seguente richiesta di {{ permit.permitType|trans }}:
     </p>

@@ -1,0 +1,38 @@
+{% extends 'emails/baseEmail.html.twig' %}
+
+{% block content %}
+    {% set employee = stamping.employee %}
+    {% set boss = stamping.employee.parentUser %}
+
+    <spacer size="20"></spacer>
+    <row>
+        <columns>
+            <p>
+                {{ stamping.employee }} ha inoltrato dichiarazione per mancata timbratura in: <br>
+                <strong> {{ stamping.stampingType|trans|upper }}</strong>
+                nel giorno {{ stamping.missedAt|date('d.m.Y') }}
+                alle ore <strong>{{ stamping.missedAt|date('H:i') }}</strong>
+            </p>
+        </columns>
+    </row>
+
+    <row>
+        <columns>
+            <p>La richiesta è stata <strong>VISIONATA</strong> da {{ boss }} in data {{ stamping.evaluatedAt | date('d.m.Y H:i')}} </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <p>Clicca qui per chiudere la segnalazione.</p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <button class="success" href="{{ url('app_stamping_index', {id: stamping.id}) }}">OK, registrato</button>
+        </columns>
+
+        <columns class="expander"></columns>
+    </row>
+
+{% endblock %}
+

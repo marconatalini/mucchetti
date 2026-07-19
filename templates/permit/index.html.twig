@@ -16,6 +16,9 @@
 {% block main %}
         <h3>Elenco richieste di {{ app.user.firstName }} {{ app.user.lastName }} </h3>
         <p>Oggi {{ date('now')|date('d.m.Y') }}, qui puoi controllare lo stato delle tue richieste.</p>
+        {% if app.user.parentUser %}
+            <a href="{{ path('app_permit_new') }}" class="btn btn-success mb-3">Nuova richiesta</a>
+        {% endif %}
         {{ include('permit/_permits_table.html.twig') }}
         {{ include('permit/_paginator.html.twig') }}
 

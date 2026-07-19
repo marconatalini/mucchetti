@@ -4,6 +4,7 @@ user.not.found: 'Utente non trovato'
 user.has.not.permit: '{user} non è in permesso'
 user.has.permit.since.end: '{user} non sarà presente fino a {end}'
 do.action.on.permitId: "Hai eseguito l'azione {action} sul permesso #{permitId}"
+do.action.on.stampingId: "Hai eseguito l'azione {action} sulla dichiarazione #{stampingId}"
 can.not.action: "L'azione \"{action}\" non è possibile."
 'First name': Nome
 'Last name': Cognome
@@ -17,6 +18,7 @@ employee.password.reset: 'Nuova password salvata'
 employee.saved: 'Utente salvato'
 'Permit type': 'Tipo permesso'
 Permit: Permesso
+Permits: Permessi
 'Permit unpaid': 'Permesso non retribuito'
 Holidays: Ferie
 'Permit 104 law': 'Permesso Legge 104'
@@ -32,3 +34,7 @@ deleted: cancellata
 Requests: Richieste
 Calendar: Calendario
 new.request: Nuova
+Stampings: Timbrature
+Income: Entrata
+Outcome: Uscita
+
