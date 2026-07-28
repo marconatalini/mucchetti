@@ -23,6 +23,7 @@ class StampingType extends AbstractType
             ])
             ->add('missedAt', null, [
                 'widget' => 'single_text',
+                'view_timezone' => 'Europe/Rome',
             ])
             ->add('submit', SubmitType::class, [])
         ;

@@ -8,7 +8,7 @@
 
 
 {% if workflow_can(stamping, 'delete') %}
-    <a class="btn btn-outline-danger" href="{{ path('app_permit_action' , {action: 'delete', id: stamping.id}) }}"
+    <a class="btn btn-outline-danger" href="{{ path('app_stamping_action' , {action: 'delete', id: stamping.id}) }}"
        data-bs-toggle="tooltip" title="cancella">
         <i class="fa-solid fa-trash"></i>
     </a>

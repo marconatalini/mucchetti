@@ -22,7 +22,8 @@ class StampingSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("MANCATA TIMBRATURA di %s %s del %s",
             $stamping->getEmployee()->getFirstName(),
             $stamping->getEmployee()->getLastName(),
-            $stamping->getMissedAt()->format('d/m/Y H:i'),
+            $stamping->getMissedAt()
+                ->format('d/m/Y H:i'),
         );
 
         $email = (new TemplatedEmail())
@@ -48,7 +49,8 @@ class StampingSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("MANCATA TIMBRATURA: %s %s del %s",
             $stamping->getEmployee()->getFirstName(),
             $stamping->getEmployee()->getLastName(),
-            $stamping->getMissedAt()->format('d/m/Y H:i'),
+            $stamping->getMissedAt()
+                ->format('d/m/Y H:i'),
         );
 
         $email = (new TemplatedEmail())

@@ -45,7 +45,8 @@ class PermitSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("Permesso RESPINTO: %s %s inizio %s",
             $permit->getEmployee()->getFirstName(),
             $permit->getEmployee()->getLastName(),
-            $permit->getStartAt()->format('d/m/Y H:i'),
+            $permit->getStartAt()
+                ->format('d/m/Y H:i'),
         );
 
         $email = (new TemplatedEmail())
@@ -70,12 +71,13 @@ class PermitSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("PERMESSO approvato: %s %s inizio %s",
             $permit->getEmployee()->getFirstName(),
             $permit->getEmployee()->getLastName(),
-            $permit->getStartAt()->format('d/m/Y H:i'),
+            $permit->getStartAt()
+                ->format('d/m/Y H:i'),
         );
 
         $email = (new TemplatedEmail())
 //            ->from('hello@example.com')
-            ->to(new Address('personale@europrofiligroup.it', 'Mariolina'))
+            ->to(new Address('personale@europrofiligroup.it', 'Giusy'))
             ->cc($permit->getEmployee()->getEmail())
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')

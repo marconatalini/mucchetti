@@ -23,9 +23,11 @@ class PermitType extends AbstractType
             ])
             ->add('startAt', null, [
                 'widget' => 'single_text',
+                'view_timezone' => 'Europe/Rome',
             ])
             ->add('endAt', null, [
                 'widget' => 'single_text',
+                'view_timezone' => 'Europe/Rome',
             ])
             ->add('agreeUnpaid')
             ->add('submit', SubmitType::class, [])

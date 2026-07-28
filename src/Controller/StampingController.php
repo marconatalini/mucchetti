@@ -74,6 +74,7 @@ final class StampingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $stamping = $form->getData();
+            dump($stamping);
             $stamping->setEmployee($this->getUser());
             $this->missedStampingStateMachine->initiate($stamping);
             $this->stampingRepository->add($stamping);

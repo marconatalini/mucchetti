@@ -23,7 +23,7 @@ class Stamping
     private ?User $employee = null;
 
     #[ORM\Column]
-    #[Assert\LessThan('now', message: 'date.past.needed')]
+    #[Assert\LessThan('now Europe/Rome', message: 'date.past.needed')]
     private ?\DateTimeImmutable $missedAt = null;
 
     #[ORM\Column(length: 50)]
