@@ -22,7 +22,7 @@ class StampingSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("MANCATA TIMBRATURA di %s %s del %s",
             $stamping->getEmployee()->getFirstName(),
             $stamping->getEmployee()->getLastName(),
-            $stamping->getMissedAt()
+            $stamping->getMissedAt()->setTimezone(new \DateTimeZone('Europe/Rome'))
                 ->format('d/m/Y H:i'),
         );
 
@@ -49,7 +49,7 @@ class StampingSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("MANCATA TIMBRATURA: %s %s del %s",
             $stamping->getEmployee()->getFirstName(),
             $stamping->getEmployee()->getLastName(),
-            $stamping->getMissedAt()
+            $stamping->getMissedAt()->setTimezone(new \DateTimeZone('Europe/Rome'))
                 ->format('d/m/Y H:i'),
         );
 

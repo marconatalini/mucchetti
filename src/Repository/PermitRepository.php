@@ -149,7 +149,9 @@ class PermitRepository extends ServiceEntityRepository
             $qb = $this->addStaffUserWhereClause($qb, $user->getStaffMembers());
         }
 
-        return $qb->getQuery()->getScalarResult();
+        return $qb->getQuery()
+            ->getResult();
+//            ->getScalarResult();
     }
 
     //    /**

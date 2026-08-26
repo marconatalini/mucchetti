@@ -21,7 +21,8 @@ class PermitSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("NUOVO PERMESSO da approvare: %s %s inizio %s",
             $permit->getEmployee()->getFirstName(),
             $permit->getEmployee()->getLastName(),
-            $permit->getStartAt()->format('d/m/Y H:i'),
+            $permit->getStartAt()->setTimezone(new \DateTimeZone('Europe/Rome'))
+                ->format('d/m/Y H:i'),
         );
 
         $email = (new TemplatedEmail())
@@ -45,7 +46,7 @@ class PermitSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("Permesso RESPINTO: %s %s inizio %s",
             $permit->getEmployee()->getFirstName(),
             $permit->getEmployee()->getLastName(),
-            $permit->getStartAt()
+            $permit->getStartAt()->setTimezone(new \DateTimeZone('Europe/Rome'))
                 ->format('d/m/Y H:i'),
         );
 
@@ -71,7 +72,7 @@ class PermitSubscriber implements EventSubscriberInterface
         $mailSubject = sprintf("PERMESSO approvato: %s %s inizio %s",
             $permit->getEmployee()->getFirstName(),
             $permit->getEmployee()->getLastName(),
-            $permit->getStartAt()
+            $permit->getStartAt()->setTimezone(new \DateTimeZone('Europe/Rome'))
                 ->format('d/m/Y H:i'),
         );
 

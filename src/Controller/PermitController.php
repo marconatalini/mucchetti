@@ -164,11 +164,12 @@ final class PermitController extends AbstractController
 
 
 
-    #[Route(path: '/permit/calendar/json', name: 'app_permit_calendar_json', methods: ['POST'])]
+    #[Route(path: '/permit/calendar/json', name: 'app_permit_calendar_json', methods: ['GET','POST'])]
     public function customer_order_calendar_json(Request $request): JsonResponse
     {
         $start = $request->get('start');
         $end = $request->get('end');
+        $time_zone = $request->get('timeZone');
 
         $events = $this->permitRepository->findByInterval($start, $end, $this->getUser());
 
@@ -182,7 +183,8 @@ final class PermitController extends AbstractController
 //            $event['url'] = $url;
             $mapped_result[] = $event;
         }
-        return $this->json($mapped_result);
+//        return $this->json($mapped_result);
+        return $this->json($events);
     }
 
 

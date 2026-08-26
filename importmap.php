@@ -86,4 +86,16 @@ return [
     '@fullcalendar/timegrid' => [
         'version' => '5.11.5',
     ],
+    '@fullcalendar/moment' => [
+        'version' => '5.11.5',
+    ],
+    'moment' => [
+        'version' => '2.29.4',
+    ],
+    '@fullcalendar/moment-timezone' => [
+        'version' => '5.11.5',
+    ],
+    'moment-timezone' => [
+        'version' => '0.5.43',
+    ],
 ];

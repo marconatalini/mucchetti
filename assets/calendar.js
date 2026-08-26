@@ -5,6 +5,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import itLocale from '@fullcalendar/core/locales/it';
+import { toMoment } from '@fullcalendar/moment'; // only for formatting
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
 
 document.addEventListener("DOMContentLoaded", (evt) => {
@@ -18,6 +20,7 @@ document.addEventListener("DOMContentLoaded", (evt) => {
     slotMaxTime: '19:00:00',
     weekends: false,
     locale: 'it',
+    // timeZone: 'Europe/Paris',
     headerToolbar: {
       start: 'prev,next today', // <-- wire up here
       center: 'title',
