@@ -26,7 +26,7 @@
             </td>
         </tr>
     {% else %}
-        {% for i in 1..8 %}
+        {% for i in 1..3 %}
             <tr class="empty-row">
                 <td><span></span></td>
                 <td><span></span></td>
@@ -38,7 +38,7 @@
                 <td><span></span></td>
                 <td><span></span></td>
             </tr>
-            {% if 4 == loop.index %}
+            {% if 1 == loop.index %}
                 <tr class="no-result">
                     <td colspan="100" class="text-center">
                         Nessuna dichiarazione

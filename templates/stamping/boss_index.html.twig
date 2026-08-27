@@ -1,0 +1,4 @@
+
+{% if app.user.staffMembers | length > 0 or is_granted("ROLE_STAFF")%}
+    {{ include('stamping/_stamping_table.html.twig', {stampings : staffMissedStamping}) }}
+{% endif %}

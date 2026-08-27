@@ -32,8 +32,9 @@ final class PermitController extends AbstractController
     #[Route('/permit', name: 'app_permit_index')]
     public function index(#[MapQueryParameter(options: ['min_range' => 0])] int $offset = 0): Response
     {
-        if ($this->isGranted('ROLE_STAFF') or $this->isGranted('ROLE_BOSS')) {
-            return $this->redirectToRoute('app_permit_action_index');
+        if ($this->isGranted('ROLE_STAFF')) {
+            #or $this->isGranted('ROLE_BOSS')) {
+            return $this->redirectToRoute('app_permit_staff_index');
         }
 
         $paginator = $this->permitRepository->findActivePermitByUser($this->getUser(), $offset);
@@ -62,20 +63,29 @@ final class PermitController extends AbstractController
 //        ]);
 //    }
 
-        #[Route('/permit/action', name: 'app_permit_action_index')]
-        public function needActionIndex(): Response
-        {
-            if ($this->isGranted("ROLE_STAFF")) {
-                $staffPermits = $this->permitRepository->findBy([],['id' => 'DESC']);
-            } else {
-                $staffPermits = $this->permitRepository->findActiveStaffPermits(
-                    $this->getUser()->getStaffMembers(), PermitRequestState::SUBMITTED);
-            }
+    #[Route('/permit/action/staff', name: 'app_permit_staff_index')]
+    #[IsGranted('ROLE_STAFF')]
+    public function staffIndex(): Response
+    {
+        $staffPermits = $this->permitRepository->findBy([],['id' => 'DESC']);
 
-            return $this->render('permit/needAction.html.twig', [
-                'staffPermits' => $staffPermits
-            ]);
-        }
+        return $this->render('permit/needAction.html.twig', [
+            'staffPermits' => $staffPermits
+        ]);
+    }
+
+    #[Route('/permit/action/boss', name: 'app_permit_boss_index')]
+    public function bossIndex(): Response
+    {
+        $staffPermits = $this->permitRepository->findActiveStaffPermits(
+            $this->getUser()->getStaffMembers(), PermitRequestState::SUBMITTED);
+
+        return $this->render('permit/boss_index.html.twig', [
+            'staffPermits' => $staffPermits
+        ]);
+    }
+
+
 
     #[Route('/permit/new', name: 'app_permit_new')]
     #[Route('/permit/edit/{id}', name: 'app_permit_edit')]

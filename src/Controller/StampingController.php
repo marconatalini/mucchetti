@@ -30,7 +30,7 @@ final class StampingController extends AbstractController
     #[Route('/index', name: 'app_stamping_index')]
     public function index(): Response
     {
-        if ($this->isGranted('ROLE_STAFF') or $this->isGranted('ROLE_BOSS')) {
+        if ($this->isGranted('ROLE_STAFF')) {
             return $this->redirectToRoute('app_stamping_action_index');
         }
 
@@ -41,20 +41,29 @@ final class StampingController extends AbstractController
         ]);
     }
 
-    #[Route('/action', name: 'app_stamping_action_index')]
-    public function needActionIndex(): Response
+    #[Route('/action/staff', name: 'app_stamping_staff_index')]
+    #[IsGranted('ROLE_STAFF')]
+    public function staffIndex(): Response
     {
-        if ($this->isGranted("ROLE_STAFF")) {
-            $staffMissedStamping = $this->stampingRepository->findBy([],['id' => 'DESC']);
-        } else {
-            $staffMissedStamping = $this->stampingRepository->findStaffMissedStamping(
-                $this->getUser()->getStaffMembers(), MissedStampingState::SUBMITTED);
-        }
+        $staffMissedStamping = $this->stampingRepository->findBy([],['id' => 'DESC']);
 
         return $this->render('stamping/needAction.html.twig', [
             'staffMissedStamping' => $staffMissedStamping,
         ]);
     }
+
+    #[Route('/action/boss', name: 'app_stamping_boss_index')]
+    public function bossIndex(): Response
+    {
+        $staffMissedStamping = $this->stampingRepository->findStaffMissedStamping(
+            $this->getUser()->getStaffMembers(), MissedStampingState::SUBMITTED);
+
+        return $this->render('stamping/boss_index.html.twig', [
+            'staffMissedStamping' => $staffMissedStamping,
+        ]);
+    }
+
+
 
     #[Route('/new', name: 'app_stamping_new')]
     #[Route('/edit/{id}', name: 'app_stamping_edit')]

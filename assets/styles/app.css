@@ -6,9 +6,13 @@ body {
     /*background-color: skyblue;*/
 }
 
-li.vertical-divider {
-    border: 2px solid lightgray;
-    margin: 0 15px;
+.nav-item {
+    text-align: right;
+}
+
+.dropdown-menu {
+    background-color: whitesmoke;
+    text-align: right;
 }
 
 /*form signin*/

@@ -14,7 +14,9 @@
                    aria-label="Search" name="employee" autocomplete="off" autofocus>
             <datalist id="employees">
                 {% for user in employees %}
+{#                    {% if user.roles|join is same as 'ROLE_USER' %}#}
                     <option value="{{ user.firstName }} {{ user.lastName }}"></option>
+{#                    {% endif %}#}
                 {% endfor %}
             </datalist>
             <button class="btn btn-outline-secondary" type="submit" id="button-search">Cerca</button>

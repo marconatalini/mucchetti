@@ -1,0 +1,4 @@
+
+{% if app.user.staffMembers | length > 0%}
+    {{ include('permit/_permits_table.html.twig', {permits : staffPermits}) }}
+{% endif %}

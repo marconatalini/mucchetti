@@ -24,7 +24,7 @@
         {{ include('_navbar.html.twig') }}
     {% endblock %}
 
-    <main class="{% block mainclass %}m-lg-auto{% endblock %}">
+    <main class="{% block mainclass %}m-auto{% endblock %}">
         {% block flash_message %}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
