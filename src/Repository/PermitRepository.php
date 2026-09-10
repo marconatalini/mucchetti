@@ -126,7 +126,8 @@ class PermitRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->Where('p.employee = :user AND p.startAt <= :now AND p.endAt >= :now')
             ->setParameter('user', $user)
-            ->setParameter('now', new \DateTime('now', new \DateTimeZone('Europe/Rome')))
+            ->setParameter('now', new \DateTime())
+//            ->setParameter('now', new \DateTime('now', new \DateTimeZone('Europe/Rome')))
             ->getQuery()
             ->getOneOrNullResult()
             ;

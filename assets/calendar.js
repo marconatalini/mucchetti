@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", (evt) => {
   let calendar = new Calendar(calendarEl, {
     plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin, bootstrapPlugin],
     initialView: 'timeGridWeek',
-    slotMinTime: '08:00:00',
-    slotMaxTime: '19:00:00',
+    slotMinTime: '06:00:00',
+    slotMaxTime: '22:00:00',
     weekends: false,
     locale: 'it',
     // timeZone: 'Europe/Paris',

@@ -116,8 +116,9 @@ final class EmployeeController extends AbstractController
 
         $this->addFlash('success', sprintf($this->translator->trans('user.has.permit.since.end', [
             '%user%' => $user,
-            '%end%' => $permit->getEndAt()->format('d/m/y H:i')])));
+            '%end%' => $permit->getEndAt()->setTimezone(new \DateTimeZone('Europe/Rome'))->format('d/m/y H:i')])));
 
-        return $this->render('default/home.html.twig');
+        return $this->redirectToRoute('app_home');
+
     }
 }
