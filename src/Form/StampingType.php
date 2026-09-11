@@ -25,7 +25,7 @@ class StampingType extends AbstractType
                 'widget' => 'single_text',
                 'view_timezone' => 'Europe/Rome',
             ])
-            ->add('submit', SubmitType::class, [])
+            ->add('Save', SubmitType::class, [])
         ;
     }
 

@@ -30,7 +30,7 @@ class PermitType extends AbstractType
                 'view_timezone' => 'Europe/Rome',
             ])
             ->add('agreeUnpaid')
-            ->add('submit', SubmitType::class, [])
+            ->add('Save', SubmitType::class, [])
         ;
     }
 
