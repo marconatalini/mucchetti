@@ -31,7 +31,7 @@ final class StampingController extends AbstractController
     public function index(): Response
     {
         if ($this->isGranted('ROLE_STAFF')) {
-            return $this->redirectToRoute('app_stamping_action_index');
+            return $this->redirectToRoute('app_stamping_staff_index');
         }
 
         return $this->render('stamping/index.html.twig', [
@@ -114,11 +114,7 @@ final class StampingController extends AbstractController
         ]));
 //            sprintf("Hai eseguito l'azione '%s' sul permesso %d", $action, $stamping->getId()));
 
-        if ($this->getUser()->getParentUser()){
-            return $this->redirectToRoute('app_stamping_index');
-        }
-
-        return $this->redirectToRoute('app_stamping_action_index');
+        return $this->redirectToRoute('app_stamping_index');
 
     }
 

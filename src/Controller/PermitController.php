@@ -138,11 +138,7 @@ final class PermitController extends AbstractController
         ]));
 //            sprintf("Hai eseguito l'azione '%s' sul permesso %d", $action, $permit->getId()));
 
-        if ($this->getUser()->getParentUser()){
-            return $this->redirectToRoute('app_permit_index');
-        }
-
-        return $this->redirectToRoute('app_permit_action_index');
+        return $this->redirectToRoute('app_permit_index');
 
     }
 
